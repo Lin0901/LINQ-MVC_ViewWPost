@@ -1,0 +1,38 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model List<Course>
+
+    <h1>Welcome to Courses</h1>
+
+    <h2>Our Courses</h2>
+
+    @if (Model == null)
+    {
+        <h1>Oooops!</h1>
+    }else
+    {
+    @foreach (var c in Model)
+    {
+        <h3>
+            <a asp-action="CourseDetails" asp-route-courseId="@c.Id">@c.Title (Capacity: @c.Capacity)</a>
+        </h3>
+        @if (c.Registrations.Any())
+        {
+            <h4>Attending Students</h4>
+            <ul>
+            @foreach (var s in c.Registrations)
+            {   
+                <li>
+                    <a asp-action="StudentDetails" asp-route-studentId="@s.Student.Id">@s.Student.FirstName @s.Student.LastName</a>
+                </li>
+            }
+            </ul>
+        }
+
+        
+    }
+    }
